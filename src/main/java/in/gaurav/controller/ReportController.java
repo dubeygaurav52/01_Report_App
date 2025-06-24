@@ -27,11 +27,12 @@ public class ReportController {
 	 * @return 
 	 */
 	@GetMapping("/pdf")
-	public void pdfExport(HttpServletResponse response) throws Exception {
+	public void pdfExport(HttpServletResponse response,Model model) throws Exception {
 		
 		response.setContentType("application/pdf");
 		response.addHeader("Content-Disposition", "attachment;filename=plans.pdf");
-		reportService.exportPdf(response);
+		boolean status = reportService.exportPdf(response);
+		model.addAttribute("msg", "PDF Report sent to your email");
 	}
 	
 	/**
@@ -40,11 +41,12 @@ public class ReportController {
 	 * @return 
 	 */
 	@GetMapping("/excel")
-	public void excelExport(HttpServletResponse response) throws Exception {
+	public void excelExport(HttpServletResponse response,Model model) throws Exception {
 		
 		response.setContentType("application/octet-stream");
 		response.addHeader("Content-Disposition", "attachment;filename=plans.xls");
-		reportService.exportExcel(response);
+		boolean status = reportService.exportExcel(response);
+		model.addAttribute("msg", "Excel Report sent to your email");
 	}
 	
 	
